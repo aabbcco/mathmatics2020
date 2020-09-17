@@ -14,12 +14,12 @@ print('winds',wind1.columns)
 
 #merge wind and vis
 data = pd.DataFrame()
+data["CREATEDATE"]=vis1['CREATEDATE']
 data["LOCALDATE (BEIJING)"] = vis1["LOCALDATE (BEIJING)"]
-data["MOR_1A"] = vis1["MOR_1A"]
-data["RVR_1A"] = vis1["RVR_1A"]
-data["WS2A (MPS)"] = wind1["WS2A (MPS)"]
-data["WD2A"] = wind1["WD2A"]
-data["CW2A (MPS)"] = wind1["CW2A (MPS)"]
+data["SITE"]=vis1["SITE"]
+# data["MOR_1A"] = vis1["MOR_1A"]
+# data["RVR_1A"] = vis1["RVR_1A"]
+
 
 
 PAINS=[]
@@ -54,6 +54,15 @@ data["QNH AERODROME(HPA)"]=QNH
 data["TEMP (°C)"]=TEMP
 data["RH"]=RH
 data["DEWPOINT (掳C)"]=DEWPOINT
+
+data["RVR_1A"] = vis1["RVR_1A"]
+data["MOR_1A"] = vis1["MOR_1A"]
+
+
+data["LIGHT_S"]=vis1["LIGHTS"]
+data["WS2A (MPS)"] = wind1["WS2A (MPS)"]
+data["WD2A"] = wind1["WD2A"]
+data["CW2A (MPS)"] = wind1["CW2A (MPS)"]
 
 writer=pd.ExcelWriter('./duplicated.xlsx')
 data.to_excel(writer)
