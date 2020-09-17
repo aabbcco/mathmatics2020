@@ -119,7 +119,7 @@ data = newdata
 
 
 
-loss_list, loss, params, grads = linear_train(data, target, 0.001, 100)
+loss_list, loss, params, grads = linear_train(data, target, 0.0001, 2000)
 print("参数：", params)
 
 def predict(X, params):
@@ -143,7 +143,7 @@ plt.show()
 #预测值与真实值
 f = data.dot(params['w']) + params['b']
 plt.scatter(range(data.shape[0]), target)
-plt.plot(f, color = 'darkorange')
+plt.scatter(range(data.shape[0]),f, color = 'darkorange')
 plt.xlabel('X')
 plt.ylabel('y')
 plt.show()
