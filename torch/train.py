@@ -4,7 +4,7 @@ from torch.autograd import Variable
 
 NUM_epochs = 50
 batch_size = 10
-pre_acc=0
+pre_acc=0 
 
 
 class NIN(nn.Module):
