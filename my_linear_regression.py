@@ -63,16 +63,17 @@ def linear_train(X, y, learning_rate, epochs):
 
 from sklearn.utils import shuffle
 
-X = pd.read_excel("duplicated.xlsx")
+X = pd.read_excel("concat_data_12.xlsx")
 col = X.columns
 print(col)
 X1 = []
 target = []
 
-for i in range(4,10):
+
+for i in range(6,10):
     X1.append(X[col[i]])
-for i in range(12,len(col)):
-    X1.append(X[col[i]])
+X1.append(X[col[12]])
+X1.append(X[col[13]])
 for i in range(10,12):
     target.append(X[col[i]])
 
@@ -102,15 +103,15 @@ import numpy as np
 from sklearn.decomposition import PCA
 
 
-pca = PCA(n_components=3)   #降到2维
-pca.fit(data)                  #训练
-newdata=pca.fit_transform(data)   #降维后的数据
-#PCA(copy=True, n_components=2, whiten=False)
-print(pca.explained_variance_ratio_)  #输出贡献率
+# pca = PCA(n_components=3)   #降到2维
+# pca.fit(data)                  #训练
+# newdata=pca.fit_transform(data)   #降维后的数据
+# #PCA(copy=True, n_components=2, whiten=False)
+# print(pca.explained_variance_ratio_)  #输出贡献率
 
-print("new_data:", newdata.shape)
+# print("new_data:", newdata.shape)
 
-data = newdata
+# data = newdata
 #标签log
 """
 for i in range(0,len(target)):
@@ -120,7 +121,7 @@ print(target[0])
 """
 
 
-loss_list, loss, params, grads = linear_train(data, target, 0.00001, 500)
+loss_list, loss, params, grads = linear_train(data, target, 0.000001, 500)
 print("参数：", params)
 
 def predict(X, params):
