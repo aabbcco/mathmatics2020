@@ -35,10 +35,10 @@ print(target)
 
 data,target= shuffle(data,target)
 
-train = data[300:,:]
-test = data[:300,:]
-train_target=target[300:]
-test_target = target[:300]
+train = data[200:,:]
+test = data[:200,:]
+train_target=target[200:]
+test_target = target[:200]
 
 gpr =GaussianProcessRegressor(optimizer='fmin_l_bfgs_b')
 gpf=gpr.fit(train,train_target)

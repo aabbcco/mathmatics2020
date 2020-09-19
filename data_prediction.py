@@ -8,11 +8,17 @@ wanted = ['PAINS(HPA)','QFE 06','QNH','TEMP','RH','DEWPOINT','WS2A','WD2A','CW2A
 
 target = np.asfarray(data['MOR_1A'])
 
-for i,key in enumerate(wanted):
-    base = np.asfarray(data[key]).transpose()
-    torch.scatter(base,target,s=1)
-    torch.xlabel(key)
-    torch.ylabel('neng jian du')
-    torch.savefig(key+"15.png")
-    torch.show()
+# for i,key in enumerate(wanted):
+#     base = np.asfarray(data[key]).transpose()
+#     torch.scatter(base,target,s=1)
+#     torch.xlabel(key)
+#     torch.ylabel('neng jian du')
+#     torch.savefig(key+"15.png")
+#     torch.show()
 
+base = np.asfarray(abs(data['DEWPOINT']-data['TEMP'])).transpose()
+torch.scatter(base,target,s=1)
+torch.xlabel('abs(DEW-TEMP)')
+torch.ylabel('neng jian du')
+torch.savefig("abs(DEW-TEMP)15.png")
+torch.show()
