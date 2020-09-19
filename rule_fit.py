@@ -39,6 +39,7 @@ data = np.asarray(X1).transpose((1,0))
 target = target[:,1]
 target = np.asarray(target)
 
+<<<<<<< HEAD
 from sklearn.utils import shuffle
 data,target= shuffle(data,target)
 
@@ -50,6 +51,10 @@ test_target = target[:200]
 from sklearn.ensemble import GradientBoostingRegressor
 gb = GradientBoostingRegressor(n_estimators=500, max_depth=10, learning_rate=0.01)
 
+=======
+
+xx = X1.as_matrix()
+>>>>>>> fcd4226b4025a6ae1c17a3c25c34abc8f423babf
 
 relu_fit = RuleFit()
 relu_fit.max_iter=4000
