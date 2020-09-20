@@ -5,42 +5,10 @@ from sklearn import preprocessing
 from rulefit import RuleFit
 
 
+data = np.load('data.npy')
+target = np.load('target.npy')
 
-X = pd.read_excel("combined.xlsx")
-col = X.columns
-print(col)
-X1 = []
-target = []
-feature_name = []
-
-for i in range(6,9):
-    X1.append(X[col[i]])
-    feature_name.append(col[i])
-X1.append(abs(X[col[7]]-X[col[9]]))
-feature_name.append('absolute_temp')
-for i in range(13,14):
-    X1.append(X[col[i]])
-    feature_name.append(col[i])
-
-feature_name.append(col[15])
-X1.append(X[col[15]])
-for i in range(10,12):
-    target.append(X[col[i]])
-
-target = np.asarray(target).transpose((1,0))
-print(np.asarray(target).shape)
-
-#X1 = np.asarray(X1).transpose((1,0))
-min_max_scaler = preprocessing.MinMaxScaler()
-data = min_max_scaler.fit_transform(X1)
-data = np.asarray(X1).transpose((1,0))
-
-
-target = target[:,1]
-target = np.asarray(target)
-
-from sklearn.utils import shuffle
-data,target= shuffle(data,target)
+feature_name = ['QNH','TEMP','RH','absolute_temp','WS2A','CW2A']
 
 train = data[200:,:]
 test = data[:200,:]
@@ -74,14 +42,16 @@ writer.close()
 
 from matplotlib import pyplot as plt
 
-
-
-plt.scatter(range(train_target.shape[0]),train_target)
-plt.scatter(range(train_target.shape[0]),ff)
+plt.scatter(range(train_target.shape[0]),train_target,label='label',s =2)
+plt.scatter(range(train_target.shape[0]),ff,label='pred',s=2)
+plt.title("Rulefit-Train")
+plt.legend(loc="upper right")
 plt.show()
 
-plt.scatter(range(test_target.shape[0]),test_target)
-plt.scatter(range(test_target.shape[0]),f, color = 'darkorange')
+plt.scatter(range(test.shape[0]), test_target,label="label",s=2)
+plt.scatter(range(test.shape[0]), f, color='darkorange', label='pred',s=2)
+plt.title('Rulefit')
+plt.legend(loc="upper right")
 plt.xlabel('X')
 plt.ylabel('y')
 plt.show()
