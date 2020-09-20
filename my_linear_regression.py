@@ -61,47 +61,15 @@ def linear_train(X, y, learning_rate, epochs):
     return loss_list, loss, params, grads
 
 
-from sklearn.utils import shuffle
-
-X = pd.read_excel("concat_data_12.xlsx")
-col = X.columns
-print(col)
-X1 = []
-target = []
-
-
-for i in range(6,10):
-    X1.append(X[col[i]])
-X1.append(X[col[12]])
-X1.append(X[col[13]])
-for i in range(10,12):
-    target.append(X[col[i]])
-
-
-#X1 = np.asarray(X1).transpose((1,0))
-#print(np.asarray(X1).shape)
-target = np.asarray(target).transpose((1,0))
-print(np.asarray(target).shape)
-
-#X1 = np.asarray(X1).transpose((1,0))
-min_max_scaler = preprocessing.MinMaxScaler()
-data = min_max_scaler.fit_transform(X1)
-data = np.asarray(X1).transpose((1,0))
-
-
-target = target[:,1]
-target = np.asarray(target)
-print(target.shape)
-print(target)
-
-#data, target = shuffle(data, target)
-print(data[0])
-
-
-import numpy as np
-
 from sklearn.decomposition import PCA
 
+datas = np.load('data.npy')
+targets = np.load('target.npy')
+
+train = datas[200:,:]
+test = datas[:200,:]
+train_target=targets[200:]
+test_target = targets[:200]
 
 # pca = PCA(n_components=3)   #降到2维
 # pca.fit(data)                  #训练
@@ -121,7 +89,7 @@ print(target[0])
 """
 
 
-loss_list, loss, params, grads = linear_train(data, target, 0.000001, 500)
+loss_list, loss, params, grads = linear_train(train, train_target, 0.000001, 500)
 print("参数：", params)
 
 def predict(X, params):
@@ -132,9 +100,8 @@ def predict(X, params):
 
 import matplotlib.pyplot as plt
 
-y_pred = predict(data, params) #得到预测值
+y_pred = predict(test, params) #得到预测值
 
-import matplotlib.pyplot as plt
 
 #训练过程的损失绘制
 plt.plot(loss_list, color = 'blue')
@@ -142,10 +109,18 @@ plt.xlabel('epochs')
 plt.ylabel('loss')
 plt.show()
 
+truth=0
+for i in range(test_target.shape[0]):
+    if abs(test_target[i]-y_pred[i])/test_target[i]<0.1:
+        truth+=1
+
+print("truth: ",truth/test_target.shape[0])
+
 #预测值与真实值
-f = data.dot(params['w']) + params['b']
-plt.scatter(range(data.shape[0]), target)
-plt.scatter(range(data.shape[0]), f, color = 'darkorange')
+plt.scatter(range(test.shape[0]), test_target,label="label",s=2)
+plt.scatter(range(test.shape[0]), y_pred, color='darkorange', label='pred',s=2)
+plt.title('Linear Regression')
+plt.legend(loc="upper right")
 plt.xlabel('X')
 plt.ylabel('y')
 plt.show()
