@@ -27,7 +27,7 @@ for i in range(label1.shape[0]):
         copyfile(os.path.join('./',datafolder, str(i + 1) + '.png'), os.path.join(dest_folder, '2',str(i + 1) + '.png'))
     elif label1[i] <= 700:
         copyfile(os.path.join('./',datafolder, str(i + 1) + '.png'), os.path.join(dest_folder, '3',str(i + 1) + '.png'))
-    elif label1[i] <= 1200:
+    elif label1[i] <= 1600:
         copyfile(os.path.join('./',datafolder, str(i + 1) + '.png'), os.path.join(dest_folder, '4',str(i + 1) + '.png'))
     print(i)
 
