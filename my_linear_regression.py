@@ -70,10 +70,11 @@ X1 = []
 target = []
 
 
-for i in range(6,10):
+for i in range(6,9):
     X1.append(X[col[i]])
-X1.append(X[col[12]])
-X1.append(X[col[13]])
+X1.append(abs(X['TEMP'] - X['DEWPOINT']))
+X1.append(X['WS2A'])
+X1.append(X['CW2A'])
 for i in range(10,12):
     target.append(X[col[i]])
 
